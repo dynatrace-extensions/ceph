@@ -1,0 +1,13 @@
+extension.zip
+extension.zip.sig
+bundle.zip
+
+# nix build output symlink
+result
+
+# dep
+secrets/*
+
+remote-activation.json
+
+local-activation.json
