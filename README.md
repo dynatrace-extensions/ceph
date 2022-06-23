@@ -1,5 +1,5 @@
-# MongoDB Generic Extension
-Extension targeting [MongoDB database](https://docs.mongodb.com/)
+# Ceph Extension
+Extension targeting [Ceph](https://ceph.io/en/)
 
 ## Usage
 For now go for [dev](#dev)
