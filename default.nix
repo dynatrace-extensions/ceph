@@ -66,7 +66,7 @@ let
   ];
   prometheusDatasource = import ./go-datasource.nix {
     tech = "prometheus";
-    rev = "45a7d0e795ee9dc039adfd0ceafeb5b15fa3333e";
+    rev = "d6b114880da6a13383c35b855465e9d53f90bed6";
     inherit pkgs;
   };
   pythonCore = pkgs.python39;
