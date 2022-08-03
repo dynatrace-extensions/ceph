@@ -11,3 +11,6 @@ secrets/*
 remote-activation.json
 
 local-activation.json
+
+# internal hooks
+dynatrace-internal
