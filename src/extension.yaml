@@ -1,7 +1,33 @@
-name: custom:com.dynatrace.extension.ceph
+name: com.dynatrace.extension.ceph-cluster
 version: 0.1.0
-minDynatraceVersion: "1.230"
+minDynatraceVersion: "1.223"
 author:
   name: Dynatrace
 dashboards:
-#  - path: "dashboards/ceph_overview.json"
+  - path: "dashboards/dashboard.json"
+
+metrics:
+  - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+    metadata:
+      displayName: Open monitor sessions
+      description: Number of open monitor sessions
+      unit: Count
+  - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+    metadata:
+      displayName: Quorum
+      description: Monitor deamons in quorum
+      unit: Count
+  
+
+prometheus:
+  - group: cluster
+    interval: 1m
+    subgroups:
+      - subgroup: monitor
+        metrics:
+          - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+            type: gauge
+            value: metric:ceph_mon_num_sessions
+          - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+            type: gauge
+            value: metric:ceph_mon_quorum_status

@@ -24,6 +24,12 @@ include $(shell test -n "$$DT_EXTENSION_TOOLING_LOC" && echo "$$DT_EXTENSION_TOO
 test: ## run all tests
 	@echo "Not implemented"; false
 
+# this is a hack until --idtoken isn't required for local testing
+RUN_CMD := dtsourceprometheus --url=file://CONSOLE --idtoken='.gitignore' --extConfig 'file://$(_ENTRYPOINT)' --userConfig 'file://local-activation.json'
+
+run: ## run the extension locally
+	$(RUN_CMD) | grep "MINT"
+
 # Bootstrap
 # ###############
 .PHONY: init clean really_clean 
