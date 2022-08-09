@@ -27,7 +27,7 @@ let
     };
   };
   commonMake = with pkgs; stdenv.mkDerivation rec {
-    version = "67428cb2bf532c54baaba834102636c5c3010d73";
+    version = "1feba9658f778c4e9901dc8635a6c10d1bd7ab75";
     name = "commonMake-${version}";
     src = builtins.fetchGit {
       url = "https://github.com/dynatrace-extensions/toolz.git";
@@ -63,14 +63,15 @@ let
   };
   pythonPkgs = python-packages: with python-packages; [
       ptpython # used for dev
-  ];
-  prometheusDatasource = import ./go-datasource.nix {
-    tech = "prometheus";
-    rev = "d6b114880da6a13383c35b855465e9d53f90bed6";
-    inherit pkgs;
-  };
+  ] ++ internalPkgs.pythonPkgs;
   pythonCore = pkgs.python39;
   myPython = pythonCore.withPackages pythonPkgs;
+  internalPkgs = if builtins.pathExists ./dynatrace-internal/root.nix
+    then import ./dynatrace-internal/root.nix { parentPkgs = pkgs; }
+    else {
+      pkgs = [];
+      pythonPkgs = [];
+    };
   env = pkgs.buildEnv {
     name = "extension-dev-env";
     paths =
@@ -79,21 +80,19 @@ let
       git
       gnugrep
       gnumake
+      myPython
+
+      # TODO: is this needed anymore?
       yq
       curl
       jq
-      myPython
-      entr
 
       dtcli
       commonMake
       dtClusterSchema
 
-      # datasources
-      prometheusDatasource
-
       # extension-specific
-    ];
+    ] ++ internalPkgs.pkgs;
   };
 in
 {
