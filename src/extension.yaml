@@ -1,33 +1,218 @@
 name: com.dynatrace.extension.ceph-cluster
 version: 0.1.0
-minDynatraceVersion: "1.223"
+minDynatraceVersion: '1.230'
 author:
   name: Dynatrace
 dashboards:
-  - path: "dashboards/dashboard.json"
-
+- path: dashboards/dashboard.json
 metrics:
-  - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
-    metadata:
-      displayName: Open monitor sessions
-      description: Number of open monitor sessions
-      unit: Count
-  - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
-    metadata:
-      displayName: Quorum
-      description: Monitor deamons in quorum
-      unit: Count
-  
-
+- key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+  metadata:
+    displayName: Monitor Sessions
+    description: Number of open monitor sessions
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+  metadata:
+    displayName: Quorum
+    description: Monitor daemons in quorum
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.capacity.total.bytes
+  metadata:
+    displayName: Total Capacity
+    description: Total cluster capacity in bytes
+    unit: Byte
+- key: com.dynatrace.extension.ceph-cluster.capacity.used.bytes
+  metadata:
+    displayName: Used Capacity
+    description: Used cluster capacity in bytes
+    unit: Byte
+- key: func:com.dynatrace.extension.ceph-cluster.capacity.used.percent
+  query:
+    metricSelector: (100) * (com.dynatrace.extension.ceph-cluster.capacity.used.bytes)
+      / (com.dynatrace.extension.ceph-cluster.capacity.total.bytes)
+  metadata:
+    displayName: Capacity Usage %
+    description: Percentage of total cluster capacity used
+    unit: Percent
+- key: com.dynatrace.extension.ceph-cluster.osd.in.count
+  metadata:
+    displayName: OSDs IN
+    description: Storage daemons in the cluster
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.osd.up.count
+  metadata:
+    displayName: OSDs UP
+    description: Storage daemons running
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.osd.write.bytes.total
+  metadata:
+    displayName: Bytes Written
+    description: Total sum of bytes written to OSD
+    unit: Byte
+- key: com.dynatrace.extension.ceph-cluster.osd.read.bytes.total
+  metadata:
+    displayName: Bytes Read
+    description: Total sum of bytes read from OSD
+    unit: Byte
+- key: com.dynatrace.extension.ceph-cluster.osd.write.operations.total
+  metadata:
+    displayName: Write Operations
+    description: Total sum of write operations performed on OSD
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.osd.read.operations.total
+  metadata:
+    displayName: Read Operations
+    description: Total sum of read operation performed on OSD
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms
+  metadata:
+    displayName: OSD Apply Latency
+    description: Latency of the "commit" operation on the OSD in milliseconds
+    unit: MilliSecond
+- key: com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms
+  metadata:
+    displayName: OSD Commit Latency
+    description: Latency of the "commit" operation on the OSD in milliseconds
+    unit: MilliSecond
+- key: com.dynatrace.extension.ceph-cluster.osd.write.latency.total.ms
+  metadata:
+    displayName: Total OSD Write Latency
+    description: Total latency of the "write" operations on the OSD in milliseconds
+    unit: MilliSecond
+- key: com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms
+  metadata:
+    displayName: Total OSD Read Latency
+    description: Total latency of the "read" operations on the OSD in milliseconds
+    unit: MilliSecond
+- key: func:com.dynatrace.extension.ceph-cluster.osd.write.latency.avg.ms
+  query:
+    metricSelector: (com.dynatrace.extension.ceph-cluster.osd.write.latency.total.ms)
+      / (com.dynatrace.extension.ceph-cluster.osd.write.operations.total)
+  metadata:
+    displayName: Average OSD Write Latency
+    description: Average latency per "write" operation on the OSD in milliseconds
+    unit: MilliSecond
+- key: func:com.dynatrace.extension.ceph-cluster.osd.read.latency.avg.ms
+  query:
+    metricSelector: (com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms)
+      / (com.dynatrace.extension.ceph-cluster.osd.read.operations.total)
+  metadata:
+    displayName: Average OSD Read Latency
+    description: Average latency per "read" operation on the OSD in milliseconds
+    unit: MilliSecond
+- key: com.dynatrace.extension.ceph-cluster.pool.objects.count
+  metadata:
+    displayName: Objects Count
+    description: Number of objects in pool
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered.count
+  metadata:
+    displayName: Objects Recovered
+    description: Number of recovered objects in pool
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered.count
+  metadata:
+    displayName: Bytes Recovered
+    description: Number of recovered bytes in pool
+    unit: Byte
+- key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations.count
+  metadata:
+    displayName: Recovery Operations
+    description: Number of recovery operations in OSD
+    unit: Count
 prometheus:
-  - group: cluster
-    interval: 1m
-    subgroups:
-      - subgroup: monitor
-        metrics:
-          - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
-            type: gauge
-            value: metric:ceph_mon_num_sessions
-          - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
-            type: gauge
-            value: metric:ceph_mon_quorum_status
+- group: cluster
+  interval: 1m
+  subgroups:
+  - subgroup: monitor
+    metrics:
+    - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+      type: gauge
+      value: metric:ceph_mon_num_sessions
+    - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+      type: gauge
+      value: metric:ceph_mon_quorum_status
+    - key: com.dynatrace.extension.ceph-cluster.capacity.total.bytes
+      type: gauge
+      value: metric:ceph_cluster_total_bytes
+    - key: com.dynatrace.extension.ceph-cluster.capacity.used.bytes
+      type: gauge
+      value: metric:ceph_cluster_total_used_bytes
+    dimensions:
+    - key: mon.name
+      value: label:ceph_daemon
+      filter: const:$prefix(mon.)
+  - subgroup: osd
+    metrics:
+    - key: com.dynatrace.extension.ceph-cluster.osd.in.count
+      type: gauge
+      value: metric:ceph_osd_in
+    - key: com.dynatrace.extension.ceph-cluster.osd.up.count
+      type: gauge
+      value: metric:ceph_osd_up
+    - key: com.dynatrace.extension.ceph-cluster.osd.write.bytes.total
+      type: counter
+      value: metric:ceph_osd_op_w_in_bytes
+    - key: com.dynatrace.extension.ceph-cluster.osd.read.bytes.total
+      type: counter
+      value: metric:ceph_osd_op_r_in_bytes
+    - key: com.dynatrace.extension.ceph-cluster.osd.write.operations.total
+      type: counter
+      value: metric:ceph_osd_op_w
+    - key: com.dynatrace.extension.ceph-cluster.osd.read.operations.total
+      type: counter
+      value: metric:ceph_osd_op_r
+    - key: com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms
+      type: gauge
+      value: metric:ceph_osd_apply_latency_ms
+    - key: com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms
+      type: gauge
+      value: metric:ceph_osd_commit_latency_ms
+    - key: com.dynatrace.extension.ceph-cluster.osd.write.latency.total.ms
+      type: counter
+      value: metric:ceph_osd_op_w_latency_sum
+    - key: com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms
+      type: counter
+      value: metric:ceph_osd_op_r_latency_sum
+    - key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations.count
+      type: counter
+      value: metric:ceph_osd_recovery_ops
+    dimensions:
+    - key: osd.name
+      value: label:ceph_daemon
+      filter: const:$prefix(osd.)
+  - subgroup: pool
+    metrics:
+    - key: com.dynatrace.extension.ceph-cluster.pool.objects.count
+      type: gauge
+      value: metric:ceph_pool_objects
+    - key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered.count
+      type: gauge
+      value: metric:ceph_pool_num_objects_recovered
+    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered.count
+      type: gauge
+      value: metric:ceph_pool_num_bytes_recovered
+topology:
+  types:
+  - name: ceph-cluster:monitor
+    displayName: Ceph Monitor
+    enabled: true
+    rules:
+    - idPattern: ceph_monitor_{mon.name}
+      sources:
+      - sourceType: Metrics
+        condition: $prefix(com.dynatrace.extension.ceph-cluster.monitor)
+      attributes: []
+      requiredDimensions: []
+      instanceNamePattern: Ceph Monitor Daemon {mon.name}
+  - name: ceph-cluster:osd
+    displayName: Ceph OSD
+    enabled: true
+    rules:
+    - idPattern: ceph_osd_{osd.name}
+      sources:
+      - sourceType: Metrics
+        condition: $prefix(com.dynatrace.extension.ceph-cluster.osd)
+      attributes: []
+      requiredDimensions: []
+      instanceNamePattern: Ceph Storage Daemon {osd.name}
