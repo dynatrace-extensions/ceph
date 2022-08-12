@@ -34,12 +34,12 @@ metrics:
     displayName: Capacity Usage %
     description: Percentage of total cluster capacity used
     unit: Percent
-- key: com.dynatrace.extension.ceph-cluster.osd.in.count
+- key: com.dynatrace.extension.ceph-cluster.osd.in
   metadata:
     displayName: OSDs IN
     description: Storage daemons in the cluster
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.up.count
+- key: com.dynatrace.extension.ceph-cluster.osd.up
   metadata:
     displayName: OSDs UP
     description: Storage daemons running
@@ -100,25 +100,40 @@ metrics:
     displayName: Average OSD Read Latency
     description: Average latency per "read" operation on the OSD in milliseconds
     unit: MilliSecond
-- key: com.dynatrace.extension.ceph-cluster.pool.objects.count
+- key: com.dynatrace.extension.ceph-cluster.pool.objects
   metadata:
     displayName: Objects Count
     description: Number of objects in pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered.count
+- key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered
   metadata:
     displayName: Objects Recovered
     description: Number of recovered objects in pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered.count
+- key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered
   metadata:
     displayName: Bytes Recovered
     description: Number of recovered bytes in pool
     unit: Byte
-- key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations.count
+- key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations
   metadata:
     displayName: Recovery Operations
     description: Number of recovery operations in OSD
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.pool.objects.quota
+  metadata:
+    displayName: Pool Objects Quota
+    description: Object quota set for pool
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.pool.bytes.quota
+  metadata:
+    displayName: Pool Bytes Quota
+    description: Byte quota set for pool
+    unit: Count
+- key: com.dynatrace.extension.ceph-cluster.monitor.metadata
+  metadata:
+    displayName: Monitor Metadata
+    description: Placeholder metric to get monitor metadata dimensions from exporter
     unit: Count
 prometheus:
 - group: cluster
@@ -132,22 +147,24 @@ prometheus:
     - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
       type: gauge
       value: metric:ceph_mon_quorum_status
+    dimensions:
+    - key: mon.name
+      value: label:ceph_daemon
+      filter: const:$prefix(mon.)
+  - subgroup: general
+    metrics:
     - key: com.dynatrace.extension.ceph-cluster.capacity.total.bytes
       type: gauge
       value: metric:ceph_cluster_total_bytes
     - key: com.dynatrace.extension.ceph-cluster.capacity.used.bytes
       type: gauge
       value: metric:ceph_cluster_total_used_bytes
-    dimensions:
-    - key: mon.name
-      value: label:ceph_daemon
-      filter: const:$prefix(mon.)
   - subgroup: osd
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.osd.in.count
+    - key: com.dynatrace.extension.ceph-cluster.osd.in
       type: gauge
       value: metric:ceph_osd_in
-    - key: com.dynatrace.extension.ceph-cluster.osd.up.count
+    - key: com.dynatrace.extension.ceph-cluster.osd.up
       type: gauge
       value: metric:ceph_osd_up
     - key: com.dynatrace.extension.ceph-cluster.osd.write.bytes.total
@@ -155,7 +172,7 @@ prometheus:
       value: metric:ceph_osd_op_w_in_bytes
     - key: com.dynatrace.extension.ceph-cluster.osd.read.bytes.total
       type: counter
-      value: metric:ceph_osd_op_r_in_bytes
+      value: metric:ceph_osd_op_r_out_bytes
     - key: com.dynatrace.extension.ceph-cluster.osd.write.operations.total
       type: counter
       value: metric:ceph_osd_op_w
@@ -174,7 +191,7 @@ prometheus:
     - key: com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms
       type: counter
       value: metric:ceph_osd_op_r_latency_sum
-    - key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations.count
+    - key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations
       type: counter
       value: metric:ceph_osd_recovery_ops
     dimensions:
@@ -183,17 +200,39 @@ prometheus:
       filter: const:$prefix(osd.)
   - subgroup: pool
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.pool.objects.count
+    - key: com.dynatrace.extension.ceph-cluster.pool.objects
       type: gauge
       value: metric:ceph_pool_objects
-    - key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered.count
+    - key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered
       type: gauge
       value: metric:ceph_pool_num_objects_recovered
-    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered.count
+    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered
       type: gauge
       value: metric:ceph_pool_num_bytes_recovered
+    - key: com.dynatrace.extension.ceph-cluster.pool.objects.quota
+      type: gauge
+      value: metric:ceph_pool_quota_objects
+    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.quota
+      type: gauge
+      value: metric:ceph_pool_quota_bytes
+  - subgroup: metadata
+    metrics:
+    - key: com.dynatrace.extension.ceph-cluster.monitor.metadata
+      type: gauge
+      value: metric:ceph_mon_metadata
 topology:
   types:
+  - name: ceph-cluster:cluster
+    displayName: Ceph Cluster
+    enabled: true
+    rules:
+    - idPattern: ceph_cluster_{device.name}
+      sources:
+      - sourceType: Metrics
+        condition: $prefix(com.dynatrace.extension.ceph-cluster)
+      attributes: []
+      requiredDimensions: []
+      instanceNamePattern: Ceph Cluster {device.name}
   - name: ceph-cluster:monitor
     displayName: Ceph Monitor
     enabled: true
