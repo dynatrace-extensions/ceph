@@ -1,10 +1,10 @@
-name: com.dynatrace.extension.ceph-cluster
+name: custom:com.dynatrace.extension.ceph-cluster
 version: 0.1.0
 minDynatraceVersion: '1.230'
 author:
   name: Dynatrace
 dashboards:
-- path: dashboards/dashboard.json
+- path: dashboards/ceph-default.json
 metrics:
 - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
   metadata:
@@ -168,16 +168,16 @@ prometheus:
       type: gauge
       value: metric:ceph_osd_up
     - key: com.dynatrace.extension.ceph-cluster.osd.write.bytes.total
-      type: counter
+      type: count
       value: metric:ceph_osd_op_w_in_bytes
     - key: com.dynatrace.extension.ceph-cluster.osd.read.bytes.total
-      type: counter
+      type: count
       value: metric:ceph_osd_op_r_out_bytes
     - key: com.dynatrace.extension.ceph-cluster.osd.write.operations.total
-      type: counter
+      type: count
       value: metric:ceph_osd_op_w
     - key: com.dynatrace.extension.ceph-cluster.osd.read.operations.total
-      type: counter
+      type: count
       value: metric:ceph_osd_op_r
     - key: com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms
       type: gauge
@@ -186,13 +186,13 @@ prometheus:
       type: gauge
       value: metric:ceph_osd_commit_latency_ms
     - key: com.dynatrace.extension.ceph-cluster.osd.write.latency.total.ms
-      type: counter
+      type: count
       value: metric:ceph_osd_op_w_latency_sum
     - key: com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms
-      type: counter
+      type: count
       value: metric:ceph_osd_op_r_latency_sum
     - key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations
-      type: counter
+      type: count
       value: metric:ceph_osd_recovery_ops
     dimensions:
     - key: osd.name
