@@ -100,6 +100,11 @@ metrics:
     displayName: Average OSD Read Latency
     description: Average latency per "read" operation on the OSD in milliseconds
     unit: MilliSecond
+- key: com.dynatrace.extension.ceph-cluster.osd.numpg
+  metadata:
+    displayName: Placement groups
+    description: Placement groups
+    unit: Count
 - key: com.dynatrace.extension.ceph-cluster.pool.objects
   metadata:
     displayName: Objects Count
@@ -194,6 +199,9 @@ prometheus:
     - key: com.dynatrace.extension.ceph-cluster.pool.recovery.operations
       type: count
       value: metric:ceph_osd_recovery_ops
+    - key: com.dynatrace.extension.ceph-cluster.osd.numpg
+      type: gauge
+      value: metric:ceph_osd_numpg
     dimensions:
     - key: osd.name
       value: label:ceph_daemon
