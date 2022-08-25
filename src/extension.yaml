@@ -295,11 +295,19 @@ screens:
             type: ENTITIES_LIST
     propertiesCard:
       displayOnlyConfigured: true
-      properties: []
-#        - type: ATTRIBUTE
-#          attribute:
-#            key: backend
-#            displayName: Backend
+      properties:
+        - type: ATTRIBUTE
+          attribute:
+            key: device.name
+            displayName: Device Name
+        - type: ATTRIBUTE
+          attribute:
+            key: device.address
+            displayName: Device Address
+        - type: ATTRIBUTE
+          attribute:
+            key: device.port
+            displayName: Device Port
     detailsSettings:
       staticContent:
         breadcrumbs:
@@ -421,6 +429,194 @@ screens:
               seriesType: LINE
             metrics:
               - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.recovery.operations"
+          - displayName: "Placement groups"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.numpg"
+  - entityType: ceph-cluster:monitor
+    listSettings:
+      staticContent:
+        showGlobalFilter: true
+        header:
+          title: "Monitor"
+          description: "Overview of all Monitors in Ceph"
+          icon: ceph
+      layout:
+        autoGenerate: false
+        cards: []
+#          - key: cluster-list
+#            type: ENTITIES_LIST
+    propertiesCard:
+      displayOnlyConfigured: true
+      properties: []
+#        - type: ATTRIBUTE
+#          attribute:
+#            key: backend
+#            displayName: Backend
+    detailsSettings:
+      staticContent:
+        breadcrumbs:
+          - type: ENTITY_LIST_REF
+            entityType: ceph-cluster:monitor
+        showProblems: true
+        showProperties: true
+        showAddTag: true
+        showTags: true
+        showGlobalFilter: true
+      layout:
+        autoGenerate: false
+        cards:
+          - key: "ceph-monitor"
+            type: "CHART_GROUP"
+    chartsCards:
+      - key: "ceph-monitor"
+        displayName: "Monitor"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Sessions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.sessions.open:splitBy()"
+          - displayName: "Quorum"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.quorum:splitBy()"
+  - entityType: ceph-cluster:osd
+    listSettings:
+      staticContent:
+        showGlobalFilter: true
+        header:
+          title: "OSD"
+          description: "Overview of all OSDs in Ceph"
+          icon: ceph
+      layout:
+        autoGenerate: false
+        cards: []
+    propertiesCard:
+      displayOnlyConfigured: true
+      properties: []
+    detailsSettings:
+      staticContent:
+        breadcrumbs:
+          - type: ENTITY_LIST_REF
+            entityType: ceph-cluster:osd
+        showProblems: true
+        showProperties: true
+        showAddTag: true
+        showTags: true
+        showGlobalFilter: true
+      layout:
+        autoGenerate: false
+        cards:
+          - key: "ceph-osd"
+            type: "CHART_GROUP"
+          - key: "ceph-bytes"
+            type: "CHART_GROUP"
+          - key: "ceph-operations"
+            type: "CHART_GROUP"
+          - key: "ceph-latency"
+            type: "CHART_GROUP"
+          - key: "ceph-recovery"
+            type: "CHART_GROUP"
+          - key: "ceph-placement"
+            type: "CHART_GROUP"
+    chartsCards:
+      - key: "ceph-osd"
+        displayName: "Monitor"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "OSDs IN"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.in"
+          - displayName: "OSDs UP"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.up"
+      - key: "ceph-bytes"
+        displayName: "Bytes"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Bytes Write"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes.total"
+          - displayName: "Bytes Read"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes.total"
+      - key: "ceph-operations"
+        displayName: "Operations"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Operations Write"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.operations.total"
+          - displayName: "Operations Read"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.operations.total"
+      - key: "ceph-latency"
+        displayName: "Latency"
+        numberOfVisibleCharts: 4
+        charts:
+          - displayName: "Apply"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms"
+          - displayName: "Commit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms"
+          - displayName: "Write"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.latency.total.ms"
+          - displayName: "Read"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.latency.total.ms"
+      - key: "ceph-recovery"
+        displayName: "Recovery"
+        numberOfVisibleCharts: 1
+        charts:
+          - displayName: "Recovery Operations"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.recovery.operations"
+      - key: "ceph-placement"
+        displayName: "Placement"
+        numberOfVisibleCharts: 1
+        charts:
           - displayName: "Placement groups"
             visualization:
               themeColor: DEFAULT
