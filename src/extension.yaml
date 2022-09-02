@@ -4,7 +4,7 @@ minDynatraceVersion: '1.230'
 author:
   name: Dynatrace
 dashboards:
-- path: dashboards/ceph-default.json
+- path: dashboards/dashboard.json
 metrics:
 - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
   metadata:
@@ -142,6 +142,9 @@ metrics:
     unit: Count
 prometheus:
 - group: cluster
+  dimensions:
+    - key: host
+      value: this:device.host
   interval: 1m
   subgroups:
   - subgroup: monitor
@@ -273,12 +276,14 @@ topology:
       fromType: "ceph-cluster:monitor"
       toType: "ceph-cluster:cluster"
       typeOfRelation: "CHILD_OF"
+      enabled: true
     - sources:
       - sourceType: Metrics
         condition: "$prefix(com.dynatrace.extension.ceph-cluster.osd)"
       fromType: "ceph-cluster:osd"
       toType: "ceph-cluster:cluster"
       typeOfRelation: "CHILD_OF"
+      enabled: true
 screens:
   - entityType: ceph-cluster:cluster
     listSettings:
@@ -323,13 +328,15 @@ screens:
         cards:
           - key: "ceph-cluster"
             type: "CHART_GROUP"
+          - key: "pool-metrics"
+            type: "CHART_GROUP" 
           - key: "ceph-cluster-monitor-list"
             type: "ENTITIES_LIST"
           - key: "ceph-cluster-osd-list"
             type: "ENTITIES_LIST"
     chartsCards:
       - key: "ceph-cluster"
-        displayName: "Cluster metrics"
+        displayName: "Cluster Capacity"
         numberOfVisibleCharts: 2
         charts:
           - displayName: "Total Capacity"
@@ -350,6 +357,40 @@ screens:
               seriesType: LINE
             metrics:
               - metricSelector: "func:com.dynatrace.extension.ceph-cluster.capacity.used.percent:splitBy()"
+      - key: "pool-metrics"
+        displayName: "Data Pools"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "Total Objects"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects:splitBy()"
+          - displayName: "Objects Recovered"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects.recovered:splitBy()"
+          - displayName: "Objects Quota"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects.quota:splitBy()"
+          - displayName: "Bytes Quota"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.bytes.quota:splitBy()"
+          - displayName: "Bytes Recovered"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.bytes.recovered:splitBy()"
     entitiesListCards:
       - key: cluster-list
         displayName: "Cluster list"
@@ -365,7 +406,7 @@ screens:
         displayCharts: true
         displayIcons: true
         enableDetailsExpandability: true
-        numberOfVisibleCharts: 3
+        numberOfVisibleCharts: 2
         charts:
           - displayName: "Monitor Sessions"
             visualization:
