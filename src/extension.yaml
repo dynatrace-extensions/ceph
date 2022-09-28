@@ -247,6 +247,12 @@ topology:
         - key: deviceAddress
           displayName: Device Address
           pattern: "{device.address}"
+        - key: devicePort
+          displayName: Device Port
+          pattern: "{device.port}"
+        - key: deviceName
+          displayName: Device Name
+          pattern: "{device.name}"
   - name: ceph-cluster:monitor
     displayName: Ceph Monitor
     enabled: true
@@ -303,15 +309,15 @@ screens:
       properties:
         - type: ATTRIBUTE
           attribute:
-            key: device.name
+            key: deviceName
             displayName: Device Name
         - type: ATTRIBUTE
           attribute:
-            key: device.address
+            key: deviceAddress
             displayName: Device Address
         - type: ATTRIBUTE
           attribute:
-            key: device.port
+            key: devicePort
             displayName: Device Port
     detailsSettings:
       staticContent:
