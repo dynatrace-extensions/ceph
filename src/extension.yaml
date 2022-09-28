@@ -1,4 +1,4 @@
-name: custom:com.dynatrace.extension.ceph-cluster-test
+name: custom:com.dynatrace.extension.ceph-cluster
 version: 0.1.0
 minDynatraceVersion: '1.230'
 author:
