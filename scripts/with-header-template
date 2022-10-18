@@ -1,5 +1,0 @@
-cat <<EOF
-name: com.dynatrace.extension.<%=extensionName%>
-version: <%=version%>
-EOF
-tail -n +3 $1
