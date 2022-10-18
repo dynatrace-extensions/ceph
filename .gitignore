@@ -1,5 +1,8 @@
+# intermediate files
 extension.zip
 extension.zip.sig
+
+# artifacts
 bundle.zip
 
 # nix build output symlink
@@ -8,9 +11,5 @@ result
 # dep
 secrets/*
 
-remote-activation.json
-
-local-activation.json
-
-# internal hooks
+# internal tooling hooks
 dynatrace-internal

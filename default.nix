@@ -6,12 +6,17 @@ let
     # obtain via `git ls-remote https://github.com/nixos/nixpkgs nixos-unstable`
   };
   pkgs = import nixpkgs { config = {}; };
+  pythonPkgs = python-packages: with python-packages; [
+      ptpython # used for dev
+      pyyaml
+      jsonschema
+    ];
   dtcli = with pkgs; stdenv.mkDerivation rec {
-    version = "1.6.3";
+    version = "1.6.10";
     name = "dtcli-${version}";
     src = fetchurl {
       url = "https://github.com/dynatrace-oss/dt-cli/releases/download/v${version}/dt";
-      sha256 = "sha256-z2Apkj+ScOfbxmsAp6lTc53y9W1ZBuVKdD4gJfY+naU=";
+      sha256 = "1adcvhb464z9hfhygfrzrkb4qsa8vfx7lhsvj615ni7md1g1nx71";
     };
 
     unpackPhase = ''
@@ -27,7 +32,7 @@ let
     };
   };
   commonMake = with pkgs; stdenv.mkDerivation rec {
-    version = "1feba9658f778c4e9901dc8635a6c10d1bd7ab75";
+    version = "1a61b557d4d7064180d407e1da16e20bd98f02b1";
     name = "commonMake-${version}";
     src = builtins.fetchGit {
       url = "https://github.com/dynatrace-extensions/toolz.git";
@@ -61,17 +66,8 @@ let
       install -m755 -D ble $out/bin/__dt_cluster_schema
     '';
   };
-  pythonPkgs = python-packages: with python-packages; [
-      ptpython # used for dev
-  ] ++ internalPkgs.pythonPkgs;
   pythonCore = pkgs.python39;
   myPython = pythonCore.withPackages pythonPkgs;
-  internalPkgs = if builtins.pathExists ./dynatrace-internal/root.nix
-    then import ./dynatrace-internal/root.nix { parentPkgs = pkgs; }
-    else {
-      pkgs = [];
-      pythonPkgs = [];
-    };
   env = pkgs.buildEnv {
     name = "extension-dev-env";
     paths =
@@ -80,41 +76,30 @@ let
       git
       gnugrep
       gnumake
-      myPython
-
-      # TODO: is this needed anymore?
       yq
       curl
       jq
+      myPython
+      entr
+      commonMake
+
+      bzip2
+      openssl
+      zip
 
       dtcli
-      commonMake
       dtClusterSchema
 
+      # datasources
+      # temporary disabled, until we figure out how to share it properly
+      #snmpDatasource
+
       # extension-specific
-    ] ++ internalPkgs.pkgs;
+      net-snmp
+    ];
   };
 in
 {
-  docker = { image = pkgs.dockerTools.buildImage {
-    name = "extension-env";
-    tag = "builded";
-
-    created = "now";
-
-    contents = [ env ];
-
-    runAsRoot = ''
-      #!${pkgs.runtimeShell}
-      mkdir -p /workdir
-      ln -s ${pkgs.runtimeShell} /bin/sh
-    '';
-
-    config = {
-      Cmd = [ "${pkgs.runtimeShell}" ];
-      WorkingDir = "/workdir";
-    };
-  };};
   shell = pkgs.mkShell {
     buildInputs = [ env ];
   };
