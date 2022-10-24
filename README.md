@@ -5,12 +5,7 @@ Extension targeting [Ceph](https://ceph.io/en/)
 For now go for [dev](#dev)
 
 ## TMP
-- please fill docker_container in Makefile
-- please fill companion port in Makefile
-- plase fill upstream repo if you want to publish and github CI is not done yet
-- please fill remote and local activation with port and address
-- please fill remote and local activation after dividing features into featuresets
-- please remove this entry
+- Will be provided after publishing extension on HUB
 
 ## Dev
 
