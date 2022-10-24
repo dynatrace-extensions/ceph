@@ -8,141 +8,141 @@ dashboards:
 alerts:
 - path: "alerts/alert.json"
 metrics:
-- key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+- key: ceph_mon_num_sessions
   metadata:
     displayName: Open Sessions
     description: Number of open monitor sessions
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+- key: ceph_mon_quorum_status
   metadata:
     displayName: Quorum
     description: Monitor daemons in quorum
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.capacity.total.bytes
+- key: ceph_cluster_total_bytes
   metadata:
     displayName: Total Capacity
     description: Total cluster capacity in bytes
     unit: Byte
-- key: com.dynatrace.extension.ceph-cluster.capacity.used.bytes
+- key: ceph_cluster_total_used_bytes
   metadata:
     displayName: Used Capacity
     description: Used cluster capacity in bytes
     unit: Byte
-- key: func:com.dynatrace.extension.ceph-cluster.capacity.used.percent
+- key: func:ceph_cluster_capacity_used_percent
   query:
-    metricSelector: (100) * (com.dynatrace.extension.ceph-cluster.capacity.used.bytes)
-      / (com.dynatrace.extension.ceph-cluster.capacity.total.bytes)
+    metricSelector: (100) * (ceph_cluster_total_used_bytes)
+      / (ceph_cluster_total_bytes)
   metadata:
     displayName: Capacity Usage %
     description: Percentage of total cluster capacity used
     unit: Percent
-- key: com.dynatrace.extension.ceph-cluster.osd.in
+- key: ceph_osd_in
   metadata:
     displayName: OSDs IN
     description: Storage daemons in the cluster
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.up
+- key: ceph_osd_up
   metadata:
     displayName: OSDs UP
     description: Storage daemons running
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.write.bytes
+- key: ceph_osd_op_w_in_bytes
   metadata:
     displayName: Bytes Written
     description: Total sum of bytes written to OSD
     unit: Byte
-- key: com.dynatrace.extension.ceph-cluster.osd.read.bytes
+- key: ceph_osd_op_r_out_bytes
   metadata:
     displayName: Bytes Read
     description: Total sum of bytes read from OSD
     unit: Byte
-- key: com.dynatrace.extension.ceph-cluster.osd.write.operations
+- key: ceph_osd_op_w
   metadata:
     displayName: Write Operations
     description: Total sum of write operations performed on OSD
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.read.operations
+- key: ceph_osd_op_r
   metadata:
     displayName: Read Operations
     description: Total sum of read operation performed on OSD
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms
+- key: ceph_osd_apply_latency_ms
   metadata:
     displayName: OSD Apply Latency
     description: Latency of the "commit" operation on the OSD
     unit: MilliSecond
-- key: com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms
+- key: ceph_osd_commit_latency_ms
   metadata:
     displayName: OSD Commit Latency
     description: Latency of the "commit" operation on the OSD
     unit: MilliSecond
-- key: com.dynatrace.extension.ceph-cluster.osd.write.latency.ms
+- key: ceph_osd_op_w_latency_sum
   metadata:
     displayName: Total OSD Write Latency
     description: Total latency of the "write" operations on the OSD
     unit: MilliSecond
-- key: com.dynatrace.extension.ceph-cluster.osd.read.latency.ms
+- key: ceph_osd_op_r_latency_sum
   metadata:
     displayName: Total OSD Read Latency
     description: Total latency of the "read" operations on the OSD
     unit: MilliSecond
-- key: func:com.dynatrace.extension.ceph-cluster.osd.write.latency.avg.ms
+- key: func:ceph_osd_op_w_latency_ms
   query:
-    metricSelector: (com.dynatrace.extension.ceph-cluster.osd.write.latency.ms)
-      / (com.dynatrace.extension.ceph-cluster.osd.write.operations)
+    metricSelector: (ceph_osd_op_w_latency_sum.count)
+      / (ceph_osd_op_w.count)
   metadata:
     displayName: Average OSD Write Latency
     description: Average latency per "write" operation on the OSD
     unit: MilliSecond
-- key: func:com.dynatrace.extension.ceph-cluster.osd.read.latency.avg.ms
+- key: func:ceph_osd_op_r_latency_ms
   query:
-    metricSelector: (com.dynatrace.extension.ceph-cluster.osd.read.latency.ms)
-      / (com.dynatrace.extension.ceph-cluster.osd.read.operations)
+    metricSelector: (ceph_osd_op_r_latency_sum.count)
+      / (ceph_osd_op_r.count)
   metadata:
     displayName: Average OSD Read Latency
     description: Average latency per "read" operation on the OSD
     unit: MilliSecond
-- key: com.dynatrace.extension.ceph-cluster.osd.numpg
+- key: ceph_osd_numpg
   metadata:
     displayName: Placement groups
     description: Placement groups
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.objects
+- key: ceph_pool_objects
   metadata:
     displayName: Objects Count
     description: Number of objects in pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered
+- key: ceph_pool_num_objects_recovered
   metadata:
     displayName: Objects Recovered
     description: Number of recovered objects in pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered
+- key: ceph_pool_num_bytes_recovered
   metadata:
     displayName: Bytes Recovered
     description: Number of recovered bytes in pool
     unit: Byte
-- key: com.dynatrace.extension.ceph-cluster.osd.pool.recovery.operations
+- key: ceph_osd_recovery_ops
   metadata:
     displayName: Recovery Operations
     description: Number of recovery operations in OSD
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.objects.quota
+- key: ceph_pool_quota_objects
   metadata:
     displayName: Pool Objects Quota
     description: Object quota set for pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.pool.bytes.quota
+- key: ceph_pool_quota_bytes
   metadata:
     displayName: Pool Bytes Quota
     description: Byte quota set for pool
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.monitor.metadata
+- key: ceph_mon_metadata
   metadata:
     displayName: Monitor Metadata
     description: Placeholder metric to get monitor metadata dimensions from exporter
     unit: Count
-- key: com.dynatrace.extension.ceph-cluster.osd.metadata
+- key: ceph_osd_metadata
   metadata:
     displayName: OSD Metadata
     description: Placeholder metric to get OSD metadata dimensions from exporter
@@ -156,28 +156,28 @@ prometheus:
   subgroups:
   - subgroup: cluster capacity
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.capacity.total.bytes
+    - key: ceph_cluster_total_bytes
       type: gauge
       value: metric:ceph_cluster_total_bytes
-    - key: com.dynatrace.extension.ceph-cluster.capacity.used.bytes
+    - key: ceph_cluster_total_used_bytes
       type: gauge
       value: metric:ceph_cluster_total_used_bytes
   - subgroup: pool
     featureSet: pool
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.pool.objects
+    - key: ceph_pool_objects
       type: gauge
       value: metric:ceph_pool_objects
-    - key: com.dynatrace.extension.ceph-cluster.pool.objects.recovered
+    - key: ceph_pool_num_objects_recovered
       type: gauge
       value: metric:ceph_pool_num_objects_recovered
-    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.recovered
+    - key: ceph_pool_num_bytes_recovered
       type: gauge
       value: metric:ceph_pool_num_bytes_recovered
-    - key: com.dynatrace.extension.ceph-cluster.pool.objects.quota
+    - key: ceph_pool_quota_objects
       type: gauge
       value: metric:ceph_pool_quota_objects
-    - key: com.dynatrace.extension.ceph-cluster.pool.bytes.quota
+    - key: ceph_pool_quota_bytes
       type: gauge
       value: metric:ceph_pool_quota_bytes
 - group: monitor
@@ -189,7 +189,7 @@ prometheus:
   - subgroup: monitor metadata
     interval: 1h
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.monitor.metadata
+    - key: ceph_mon_metadata
       type: gauge
       value: metric:ceph_mon_metadata
     dimensions:
@@ -199,10 +199,10 @@ prometheus:
   - subgroup: monitor state
     featureSet: monState
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.monitor.sessions.open
+    - key: ceph_mon_num_sessions
       type: gauge
       value: metric:ceph_mon_num_sessions
-    - key: com.dynatrace.extension.ceph-cluster.monitor.quorum
+    - key: ceph_mon_quorum_status
       type: gauge
       value: metric:ceph_mon_quorum_status
     dimensions:
@@ -218,7 +218,7 @@ prometheus:
   - subgroup: osd metadata
     interval: 1h
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.osd.metadata
+    - key: ceph_osd_metadata
       type: gauge
       value: metric:ceph_osd_metadata
     dimensions:
@@ -228,13 +228,13 @@ prometheus:
   - subgroup: osd state
     featureSet: osdState
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.osd.in
+    - key: ceph_osd_in
       type: gauge
       value: metric:ceph_osd_in
-    - key: com.dynatrace.extension.ceph-cluster.osd.up
+    - key: ceph_osd_up
       type: gauge
       value: metric:ceph_osd_up
-    - key: com.dynatrace.extension.ceph-cluster.osd.numpg
+    - key: ceph_osd_numpg
       type: gauge
       value: metric:ceph_osd_numpg
     dimensions:
@@ -244,19 +244,19 @@ prometheus:
   - subgroup: osd operations
     featureSet: osdOperations
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.osd.write.bytes
+    - key: ceph_osd_op_w_in_bytes
       type: count
       value: metric:ceph_osd_op_w_in_bytes
-    - key: com.dynatrace.extension.ceph-cluster.osd.read.bytes
+    - key: ceph_osd_op_r_out_bytes
       type: count
       value: metric:ceph_osd_op_r_out_bytes
-    - key: com.dynatrace.extension.ceph-cluster.osd.write.operations
+    - key: ceph_osd_op_w
       type: count
       value: metric:ceph_osd_op_w
-    - key: com.dynatrace.extension.ceph-cluster.osd.read.operations
+    - key: ceph_osd_op_r
       type: count
       value: metric:ceph_osd_op_r
-    - key: com.dynatrace.extension.ceph-cluster.osd.pool.recovery.operations
+    - key: ceph_osd_recovery_ops
       type: count
       value: metric:ceph_osd_recovery_ops
     dimensions:
@@ -266,16 +266,16 @@ prometheus:
   - subgroup: latency
     featureSet: osdLatency
     metrics:
-    - key: com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms
+    - key: ceph_osd_apply_latency_ms
       type: gauge
       value: metric:ceph_osd_apply_latency_ms
-    - key: com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms
+    - key: ceph_osd_commit_latency_ms
       type: gauge
       value: metric:ceph_osd_commit_latency_ms
-    - key: com.dynatrace.extension.ceph-cluster.osd.write.latency.ms
+    - key: ceph_osd_op_w_latency_sum
       type: count
       value: metric:ceph_osd_op_w_latency_sum
-    - key: com.dynatrace.extension.ceph-cluster.osd.read.latency.ms
+    - key: ceph_osd_op_r_latency_sum
       type: count
       value: metric:ceph_osd_op_r_latency_sum
     dimensions:
@@ -292,7 +292,7 @@ topology:
       instanceNamePattern: Ceph Cluster {device.name}
       sources:
       - sourceType: Metrics
-        condition: $prefix(com.dynatrace.extension.ceph-cluster)
+        condition: $prefix(ceph_)
       requiredDimensions: []
       attributes:
         - key: deviceAddress
@@ -306,7 +306,7 @@ topology:
       instanceNamePattern: Ceph Host {hostname}
       sources:
       - sourceType: Metrics
-        condition: $prefix(com.dynatrace.extension.ceph-cluster)
+        condition: $prefix(ceph_)
       requiredDimensions: []
       attributes:
         - key: deviceAddress
@@ -319,7 +319,7 @@ topology:
     - idPattern: ceph_monitor_{mon.name}
       sources:
       - sourceType: Metrics
-        condition: $prefix(com.dynatrace.extension.ceph-cluster.monitor)
+        condition: $prefix(ceph_mon)
       attributes: []
       requiredDimensions: []
       instanceNamePattern: Ceph Monitor {mon.name}
@@ -330,42 +330,42 @@ topology:
     - idPattern: ceph_osd_{osd.name}
       sources:
       - sourceType: Metrics
-        condition: $prefix(com.dynatrace.extension.ceph-cluster.osd)
+        condition: $prefix(ceph_osd)
       attributes: []
       requiredDimensions: []
       instanceNamePattern: Ceph OSD {osd.name}
   relationships:
     - sources:
       - sourceType: Metrics
-        condition: "$prefix(com.dynatrace.extension.ceph-cluster.monitor)"
+        condition: "$prefix(ceph_mon)"
       fromType: "ceph-cluster:monitor"
       toType: "ceph-cluster:host"
       typeOfRelation: "RUNS_ON"
       enabled: true
     - sources:
       - sourceType: Metrics
-        condition: "$prefix(com.dynatrace.extension.ceph-cluster.osd)"
+        condition: "$prefix(ceph_osd)"
       fromType: "ceph-cluster:osd"
       toType: "ceph-cluster:host"
       typeOfRelation: "RUNS_ON"
       enabled: true
     - sources:
       - sourceType: Metrics
-        condition: "$prefix(com.dynatrace.extension.ceph-cluster)"
+        condition: "$prefix(ceph_)"
       fromType: "ceph-cluster:host"
       toType: "ceph-cluster:cluster"
       typeOfRelation: "CHILD_OF"
       enabled: true  
     - sources:
       - sourceType: Metrics
-        condition: "$prefix(com.dynatrace.extension.ceph-cluster.monitor)"
+        condition: "$prefix(ceph_mon)"
       fromType: "ceph-cluster:monitor"
       toType: "ceph-cluster:cluster"
       typeOfRelation: "CHILD_OF"
       enabled: true
     - sources:
       - sourceType: Metrics
-        condition: "$prefix(com.dynatrace.extension.ceph-cluster.osd)"
+        condition: "$prefix(ceph_osd)"
       fromType: "ceph-cluster:osd"
       toType: "ceph-cluster:cluster"
       typeOfRelation: "CHILD_OF"
@@ -431,19 +431,19 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.capacity.total.bytes:splitBy()"
+              - metricSelector: "ceph_cluster_total_bytes:splitBy()"
           - displayName: "Used Capacity"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.capacity.used.bytes:splitBy()"
+              - metricSelector: "ceph_cluster_total_used_bytes:splitBy()"
           - displayName: "Capacity Usage %"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "func:com.dynatrace.extension.ceph-cluster.capacity.used.percent:splitBy()"
+              - metricSelector: "func:ceph_cluster_capacity_used_percent:splitBy()"
       - key: "pool-metrics"
         displayName: "Data Pools"
         numberOfVisibleCharts: 2
@@ -453,31 +453,31 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects:splitBy()"
+              - metricSelector: "ceph_pool_objects:splitBy()"
           - displayName: "Objects Recovered"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects.recovered:splitBy()"
+              - metricSelector: "ceph_pool_num_objects_recovered:splitBy()"
           - displayName: "Objects Quota"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.objects.quota:splitBy()"
+              - metricSelector: "ceph_pool_quota_objects:splitBy()"
           - displayName: "Bytes Quota"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.bytes.quota:splitBy()"
+              - metricSelector: "ceph_pool_quota_bytes:splitBy()"
           - displayName: "Bytes Recovered"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.pool.bytes.recovered:splitBy()"
+              - metricSelector: "ceph_pool_num_bytes_recovered:splitBy()"
     entitiesListCards:
       - key: cluster-list
         displayName: "Cluster list"
@@ -500,13 +500,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.sessions.open:splitBy()"
+              - metricSelector: "ceph_mon_num_sessions:splitBy()"
           - displayName: "Quorum"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.quorum:splitBy()"
+              - metricSelector: "ceph_mon_quorum_status:splitBy()"
       - key: ceph-cluster-host-list
         displayName: "Host"
         entitySelectorTemplate: "type(ceph-cluster:host),fromRelationships.isChildOf($(entityConditions))"
@@ -521,13 +521,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.metadata:splitBy()"
+              - metricSelector: "ceph_mon_metadata:splitBy()"
           - displayName: "OSD Metadata"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.metadata:splitBy()"
+              - metricSelector: "ceph_osd_metadata:splitBy()"
       - key: ceph-cluster-osd-list
         displayName: "OSD"
         entitySelectorTemplate: "type(ceph-cluster:osd),fromRelationships.isChildOf($(entityConditions))"
@@ -542,48 +542,48 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.in:splitBy()"
+              - metricSelector: "ceph_osd_in:splitBy()"
           - displayName: "OSDs UP"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.up:splitBy()"
+              - metricSelector: "ceph_osd_up:splitBy()"
           - displayName: "Bytes Write/Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.bytes:splitBy()"
+              - metricSelector: "ceph_osd_op_w_in_bytes:splitBy()"
+              - metricSelector: "ceph_osd_op_r_out_bytes:splitBy()"
           - displayName: "Operations Write/Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.operations:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.operations:splitBy()"
+              - metricSelector: "ceph_osd_op_w:splitBy()"
+              - metricSelector: "ceph_osd_op_r:splitBy()"
           - displayName: "OSD Latency"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.latency.ms:splitBy()"
+              - metricSelector: "ceph_osd_apply_latency_ms:splitBy()"
+              - metricSelector: "ceph_osd_commit_latency_ms:splitBy()"
+              - metricSelector: "ceph_osd_op_w_latency_sum:splitBy()"
+              - metricSelector: "ceph_osd_op_r_latency_sum:splitBy()"
           - displayName: "Recovery Operations"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.pool.recovery.operations:splitBy()"
+              - metricSelector: "ceph_osd_recovery_ops:splitBy()"
           - displayName: "Placement groups"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.numpg:splitBy()"
+              - metricSelector: "ceph_osd_numpg:splitBy()"
   - entityType: ceph-cluster:host
     listSettings:
       staticContent:
@@ -650,13 +650,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.sessions.open:splitBy()"
+              - metricSelector: "ceph_mon_num_sessions:splitBy()"
           - displayName: "Quorum"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.quorum:splitBy()"
+              - metricSelector: "ceph_mon_quorum_status:splitBy()"
       - key: ceph-cluster-osd-list
         displayName: "OSD"
         entitySelectorTemplate: "type(ceph-cluster:osd),fromRelationships.RunsOn($(entityConditions))"
@@ -671,48 +671,48 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.in:splitBy()"
+              - metricSelector: "ceph_osd_in:splitBy()"
           - displayName: "OSDs UP"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.up:splitBy()"
+              - metricSelector: "ceph_osd_up:splitBy()"
           - displayName: "Bytes Write/Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.bytes:splitBy()"
+              - metricSelector: "ceph_osd_op_w_in_bytes:splitBy()"
+              - metricSelector: "ceph_osd_op_r_out_bytes:splitBy()"
           - displayName: "Operations Write/Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.operations:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.operations:splitBy()"
+              - metricSelector: "ceph_osd_op_w:splitBy()"
+              - metricSelector: "ceph_osd_op_r:splitBy()"
           - displayName: "OSD Latency"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.latency.ms:splitBy()"
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.latency.ms:splitBy()"
+              - metricSelector: "ceph_osd_apply_latency_ms:splitBy()"
+              - metricSelector: "ceph_osd_commit_latency_ms:splitBy()"
+              - metricSelector: "ceph_osd_op_w_latency_sum:splitBy()"
+              - metricSelector: "ceph_osd_op_r_latency_sum:splitBy()"
           - displayName: "Recovery Operations"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.pool.recovery.operations:splitBy()"
+              - metricSelector: "ceph_osd_recovery_ops:splitBy()"
           - displayName: "Placement groups"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.numpg:splitBy()"
+              - metricSelector: "ceph_osd_numpg:splitBy()"
   - entityType: ceph-cluster:monitor
     listSettings:
       staticContent:
@@ -761,13 +761,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.sessions.open:splitBy()"
+              - metricSelector: "ceph_mon_num_sessions:splitBy()"
           - displayName: "Quorum"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.monitor.quorum:splitBy()"
+              - metricSelector: "ceph_mon_quorum_status:splitBy()"
     entitiesListCards:
       - key: monitor-list
         displayName: "Monitor list"
@@ -834,13 +834,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.in:splitBy()"
+              - metricSelector: "ceph_osd_in:splitBy()"
           - displayName: "OSDs UP"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.up:splitBy()"
+              - metricSelector: "ceph_osd_up:splitBy()"
       - key: "ceph-bytes"
         displayName: "Bytes"
         numberOfVisibleCharts: 2
@@ -850,13 +850,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes.count:splitBy()"
+              - metricSelector: "ceph_osd_op_w_in_bytes.count:splitBy()"
           - displayName: "Bytes Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.bytes.count:splitBy()"
+              - metricSelector: "ceph_osd_op_w_in_bytes.count:splitBy()"
       - key: "ceph-operations"
         displayName: "Operations"
         numberOfVisibleCharts: 2
@@ -866,13 +866,13 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.operations.count:splitBy()"
+              - metricSelector: "ceph_osd_op_w.count:splitBy()"
           - displayName: "Operations Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.operations.count:splitBy()"
+              - metricSelector: "ceph_osd_op_r.count:splitBy()"
       - key: "ceph-latency"
         displayName: "Latency"
         numberOfVisibleCharts: 4
@@ -882,25 +882,37 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.apply.latency.ms:splitBy()"
+              - metricSelector: "ceph_osd_apply_latency_ms:splitBy()"
           - displayName: "Commit"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.commit.latency.ms:splitBy()"
+              - metricSelector: "ceph_osd_commit_latency_ms:splitBy()"
           - displayName: "Write"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.write.latency.ms.count:splitBy()"
+              - metricSelector: "func:ceph_osd_op_w_latency_ms:splitBy()"
           - displayName: "Read"
             visualization:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.read.latency.ms.count:splitBy()"
+              - metricSelector: "func:ceph_osd_op_w_latency_ms:splitBy()"
+          - displayName: "Write Total"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "ceph_osd_op_w_latency_sum.count:splitBy()"
+          - displayName: "Read Total"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "ceph_osd_op_r_latency_sum.count:splitBy()"
       - key: "ceph-recovery"
         displayName: "Recovery"
         numberOfVisibleCharts: 1
@@ -910,7 +922,7 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.pool.recovery.operations.count:splitBy()"
+              - metricSelector: "ceph_osd_recovery_ops.count:splitBy()"
       - key: "ceph-placement"
         displayName: "Placement"
         numberOfVisibleCharts: 1
@@ -920,7 +932,7 @@ screens:
               themeColor: DEFAULT
               seriesType: LINE
             metrics:
-              - metricSelector: "com.dynatrace.extension.ceph-cluster.osd.numpg:splitBy()"
+              - metricSelector: "ceph_osd_numpg:splitBy()"
     entitiesListCards:
       - key: osd-list
         displayName: "OSD list"
