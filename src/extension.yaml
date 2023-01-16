@@ -1,10 +1,10 @@
 name: custom:com.dynatrace.extension.ceph-cluster
-version: 0.1.0
+version: 0.1.2
 minDynatraceVersion: '1.230'
 author:
   name: Dynatrace
 dashboards:
-- path: dashboards/dashboard.json
+- path: "dashboards/dashboard.json"
 alerts:
 - path: "alerts/alert.json"
 metrics:
