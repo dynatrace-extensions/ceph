@@ -1,0 +1,31 @@
+{
+  "metadata":{
+    "configurationVersions":[2],
+    "clusterVersion":"1.208.2.20201204-043043"
+  },
+  "id":"477af5f8-76d2-4fe4-9476-3f900740a2c4",
+  "metricId":"func:ceph_cluster_capacity_used_percent",
+  "name":"Cluster Capacity Nearly Exhausted",
+  "description":"The {metricname} value of {severity} was {alert_condition} your custom threshold of {threshold}.",
+  "aggregationType":"AVG",
+  "severity":"RESOURCE_CONTENTION",
+  "enabled":true,
+  "disabledReason":"NONE",
+  "warningReason":"TOO_MANY_DIMS",
+  "monitoringStrategy":{
+    "type":"STATIC_THRESHOLD",
+    "samples":50,
+    "violatingSamples":30,
+    "dealertingSamples":50,
+    "alertCondition":"ABOVE",
+    "threshold":99,
+    "unit":"PERCENT"
+  },
+  "alertCondition":"ABOVE",
+  "samples":5,
+  "violatingSamples":3,
+  "dealertingSamples":5,
+  "threshold":99,
+  "unit":"PERCENT",
+  "eventType":"RESOURCE_CONTENTION"
+}
