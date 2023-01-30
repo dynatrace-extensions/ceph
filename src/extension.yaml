@@ -5,8 +5,6 @@ author:
   name: Dynatrace
 dashboards:
 - path: "dashboards/dashboard.json"
-alerts:
-- path: "alerts/alert.json"
 metrics:
 - key: ceph_mon_num_sessions
   metadata:
