@@ -1381,7 +1381,7 @@
         "height": 38
       },
       "tileFilter": {},
-      "markdown": "## [Configure Ceph Cluster Extension](ui/hub/ext/listing/registered/custom:com.dynatrace.extension.ceph-cluster)\n\n"
+      "markdown": "## [Configure Ceph Cluster Extension](ui/hub/ext/listing/registered/com.dynatrace.extension.ceph-cluster)\n\n"
     }
   ]
 }
