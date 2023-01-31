@@ -1,11 +1,28 @@
 # Ceph Extension
-Extension targeting [Ceph](https://ceph.io/en/)
 
-## Usage
-For now go for [dev](#dev)
+This extension provides ability to monitor usage of [Ceph](https://ceph.io/en/) storage system. It covers both client side and host level in-depth data.
 
-## TMP
-- Will be provided after publishing extension on HUB
+## This is intended for users, who: 
+
+- Would like to monitor usage and performance of their Ceph platform
+
+- Require constant ability to have live information about host resources and data flow.
+
+- Aim to shorten analysis time, required to find out root cause of possible system failures, to the minimum.
+
+## This enables you to: 
+
+- Monitor host resources usage and its capacity levels.
+
+- Collect data regarding active and inactive Ceph object storage daemons.
+
+- Observe system data flow in terms of write/read operations, for the cluster as a whole, and for the osd's in particular.
+
+### This extension contains
+
+- Dashboard template,
+- Unified Analysis screen template,
+- Topology definition and entity extraction rules.
 
 ## Dev
 
