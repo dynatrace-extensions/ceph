@@ -1,6 +1,9 @@
 # Ceph Extension
 
-This extension provides ability to monitor usage of [Ceph](https://ceph.io/en/) storage system. It covers both client side and host level in-depth data.
+This extension provides ability to monitor usage of [Ceph](https://ceph.io/en/) storage system.
+Keep an eye on the overall health of your cluster, 
+including the number of active and degraded objects, 
+the status of Ceph services, and the state of the Ceph daemons.
 
 ## This is intended for users, who: 
 
@@ -10,6 +13,9 @@ This extension provides ability to monitor usage of [Ceph](https://ceph.io/en/) 
 
 - Aim to shorten analysis time, required to find out root cause of possible system failures, to the minimum.
 
+- Want to be notified about any critical events or issues that might arise, such as degraded objects or failed services, 
+thanks to the possibility of creating custom alerting rules.
+
 ## This enables you to: 
 
 - Monitor host resources usage and its capacity levels.
@@ -17,6 +23,8 @@ This extension provides ability to monitor usage of [Ceph](https://ceph.io/en/) 
 - Collect data regarding active and inactive Ceph object storage daemons.
 
 - Observe system data flow in terms of write/read operations, for the cluster as a whole, and for the osd's in particular.
+
+- Create custom dashboards that display the metrics that matter most to you, and configure alerts to notify you when specific thresholds are breached.
 
 ### This extension contains
 
